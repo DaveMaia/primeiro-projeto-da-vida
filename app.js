@@ -1,9 +1,12 @@
+let listaDeNumerosSorteados = [];
+let numeroLimite = 10
 let numeroSecreto = gerarNumeroAleatorio();
 let tentativas = 1;
 
     function exibirTextoNaTela(tag, texto){
-        let campo = document.querySelector(tag)
-        campo.innerHTML = texto
+        let campo = document.querySelector(tag);
+        campo.innerHTML = texto;
+        responsiveVoice.speak(texto, 'Brazilian Portuguese Female', {rate:1.1});
 }
 
 exibirTextoNaTela('h1', 'Jogo do Nº Secreto');
@@ -16,7 +19,7 @@ function verificarChute(){
     if (chute == numeroSecreto) {
         exibirTextoNaTela('h1', 'Acertou!');
         let palavraTentativa = tentativas > 1 ? 'tentativas' : 'tentativa';
-        let mensagemTentativas = 'Você descobriu o número secreto com ${tentativas} ${palavraTentativa}!';
+        let mensagemTentativas = `Você descobriu o número secreto com ${tentativas} ${palavraTentativa}!`;
         exibirTextoNaTela('p', mensagemTentativas);
         document.getElementById('reiniciar').removeAttribute('disabled')
     } else if (chute > numeroSecreto) {
@@ -29,7 +32,19 @@ function verificarChute(){
 }
 
 function gerarNumeroAleatorio() {
-    return parseInt(Math.random() * 10+1);
+    let numeroEscolhido = parseInt(Math.random() * numeroLimite);
+    let quantidadeDeNumerosNaLista = listaDeNumerosSorteados.length
+    
+    if (quantidadeDeNumerosNaLista == numeroLimite) {
+        listaDeNumerosSorteados = [];
+    }
+
+    if (listaDeNumerosSorteados.includes(numeroEscolhido)) {
+        return gerarNumeroAleatorio();
+    } else {
+        listaDeNumerosSorteados.push()
+        return numeroEscolhido
+    }
 }
 
 function limparCampo(){
@@ -38,7 +53,7 @@ function limparCampo(){
 }
 
 
-
+/* 
 //Crie uma função que calcule o índice de massa corporal(IMC) de uma pessoa, a partir de sua altura, em metros, e peso, em quilogramas, que serão recebidos como parâmetro.
 function calculaIndideMassaCorporal(alturaMetros, pesoKilos){
     let IMC = pesoKilos / (alturaMetros ** 2);
@@ -87,3 +102,19 @@ function mostraTabuada(numero) {
         exibirTextoNaTela('p', `${numero} x ${i} = ${resultado}`);
     }
 }
+
+/* Crie uma lista vazia, com o nome listaGenerica.
+    listaGenerica = [];
+Crie uma lista de linguagens de programação chamada linguagensDeProgramacao com os seguintes elementos: 'JavaScript','C','C++', 'Kotlin' e 'Python'.
+    linguagensDeProgramacao = ['JavaScript','C','C++', 'Kotlin', 'Python'];
+Adicione à lista linguagensDeProgramacao os seguintes elementos: 'Java', 'Ruby' e 'GoLang'.
+    linguagensDeProgramacao.push('Java', 'Ruby', 'Golang');
+Crie uma lista com 3 nomes e exiba no console apenas o primeiro elemento.
+    linguagensDeProgramacao = ['Java', 'Ruby', 'Golang'];
+    console.log(linguagensDeProgramacao[0])
+Crie uma lista com 3 nomes e exiba no console apenas o segundo elemento.
+    linguagensDeProgramacao = ['Java', 'Ruby', 'Golang'];
+    console.log(linguagensDeProgramacao[1])
+Crie uma lista com 3 nomes e exiba no console apenas o último elemento. */
+/*  linguagensDeProgramacao = ['Java', 'Ruby', 'Golang'];
+    console.log(linguagensDeProgramacao[2]) */ */
